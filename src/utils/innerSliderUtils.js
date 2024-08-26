@@ -133,7 +133,7 @@ export const initializedState = spec => {
   let currentSlide =
     spec.currentSlide === undefined ? spec.initialSlide : spec.currentSlide;
   if (spec.rtl && spec.currentSlide === undefined) {
-    currentSlide = slideCount - 1 - spec.initialSlide;
+    currentSlide = slideCount - spec.initialSlide - spec.slidesToShow;
   }
   let lazyLoadedList = spec.lazyLoadedList || [];
   let slidesToLoad = getOnDemandLazySlides({
@@ -284,11 +284,10 @@ export const changeSlide = (spec, options) => {
       targetSlide = previousInt === -1 ? slideCount - 1 : previousInt;
     }
     if (!infinite) {
-      targetSlide = previousTargetSlide - slidesToScroll;
+      targetSlide = Math.ceil(targetSlide);
     }
   } else if (options.message === "next") {
     slideOffset = indexOffset === 0 ? slidesToScroll : indexOffset;
-    targetSlide = currentSlide + slideOffset;
     if (lazyLoad && !infinite) {
       targetSlide =
         ((currentSlide + slidesToScroll) % slideCount) + indexOffset;
@@ -302,6 +301,9 @@ export const changeSlide = (spec, options) => {
   } else if (options.message === "children") {
     // Click on the slides
     targetSlide = options.index;
+    if (spec.rtl && !infinite) {
+      targetSlide = spec.slideCount - 1 - options.index;
+    }
     if (infinite) {
       let direction = siblingDirection({ ...spec, targetSlide });
       if (targetSlide > options.currentSlide && direction === "left") {
