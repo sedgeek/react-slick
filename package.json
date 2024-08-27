@@ -21,11 +21,11 @@
     "test-watch": "jest --watch",
     "clear-jest": "jest --clearCache"
   },
-  "author": "Kiran Abburi",
+  "author": "Sedgeek",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/akiran/react-slick.git"
+    "url": "git+https://github.com/sedgeek/react-slick.git"
   },
   "keywords": [
     "slick",
