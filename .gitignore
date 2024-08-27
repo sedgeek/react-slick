@@ -6,10 +6,10 @@ demos/*
 demos1
 TODO.md
 npm-debug.log
-lib
+# lib
 *.sublime-*
 .idea
-dist
+# dist
 yarn.lock
 .vscode
 exampleslib
